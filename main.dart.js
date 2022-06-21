@@ -31820,7 +31820,7 @@ b2(){this.bD()
 this.l_()},
 Lf(a){var s=null
 this.l_()
-new A.Lc(a,B.tm,"Horayyy","Songrats your answer is correct",A.a([A.agl(A.lH("OK",A.vd(s,s,B.j,s,s,s,s,s,s,s,s,14,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),new A.a1J(a))],t.q9)).nV(0)},
+new A.Lc(a,B.tm,"Horayyy","Congrats your answer is correct",A.a([A.agl(A.lH("OK",A.vd(s,s,B.j,s,s,s,s,s,s,s,s,14,s,s,s,s,!0,s,s,s,s,s,s,s,s),s,s),new A.a1J(a))],t.q9)).nV(0)},
 m5(a,b){return this.TX(a,b)},
 TX(a,b){var s=0,r=A.a4(t.z),q=this,p,o,n,m,l,k,j
 var $async$m5=A.a5(function(c,d){if(c===1)return A.a1(d,r)
