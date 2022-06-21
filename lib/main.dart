@@ -258,23 +258,23 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Widget iconGenerator(String direction) {
     if(direction == "N"){
-      return Icon(Icons.north)
+      return Icon(Icons.north);
     } else if(direction == "NE"){
-      return Icon(Icons.north_east)
+      return Icon(Icons.north_east);
     } else if(direction == "E"){
-      return Icon(Icons.east)
+      return Icon(Icons.east);
     } else if(direction == "SE"){
-      return Icon(Icons.south_east)
+      return Icon(Icons.south_east);
     } else if(direction == "S"){
-      return Icon(Icons.south)
+      return Icon(Icons.south);
     } else if(direction == "SW"){
-      return Icon(Icons.south_west)
+      return Icon(Icons.south_west);
     } else if(direction == "W"){
-      return Icon(Icons.west)
+      return Icon(Icons.west);
     } else if(direction == "NW"){
-      return Icon(Icons.north_west)
+      return Icon(Icons.north_west);
     } else {
-      return Icon(Icons.close)
+      return Icon(Icons.close);
     }
   }
 
