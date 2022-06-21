@@ -214,6 +214,10 @@ class _MyHomePageState extends State<MyHomePage> {
                               "lng" : listSearchCountry[index]["lng"]
                             }, codeCountry);
                             randomGen();
+
+                            if(currentOpenIndex == 6){
+                              failAlert();
+                            }
                           }
                           
                         },
@@ -314,167 +318,169 @@ class _MyHomePageState extends State<MyHomePage> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(.03),
-                          spreadRadius: 8.0,
-                          blurRadius: 8.0,
-                          offset: Offset(0, 0)
-                        )
-                      ],
-                    ),
-                    child: Stack(
-                      children : [
-                        Container(
-                          height: 150, 
-                          width: 201,
-                          child: Image.asset(
-                            "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
-                            fit: BoxFit.contain,
-                          ),
-                        ),
-                        Container(
-                          height: 150, width: 201,
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  AnimatedOpacity(
-                                    opacity: currentOpenIndex < 1 ? 1.0 : 0.0,
-                                    duration: const Duration(milliseconds: 100),
-                                    child: Container(
-                                      height: 75, width: 67,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
-                                        ), 
-                                      )
-                                    ),
-                                  ),
-                                  
-                                  AnimatedOpacity(
-                                    opacity: currentOpenIndex < 2 ? 1.0 : 0.0,
-                                    duration: const Duration(milliseconds: 100),
-                                    child: Container(
-                                      height: 75, width: 67,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
-                                        ), 
-                                      )
-                                    ),
-                                  ),
-                                  AnimatedOpacity(
-                                    opacity: currentOpenIndex < 3 ? 1.0 : 0.0,
-                                    duration: const Duration(milliseconds: 100),
-                                    child: Container(
-                                      height: 75, width: 67,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
-                                        ), 
-                                      )
-                                    ),
-                                  ),
-                                ]
-                              ),
-                              Row(
-                                children: [
-                                  AnimatedOpacity(
-                                    opacity: currentOpenIndex < 4 ? 1.0 : 0.0,
-                                    duration: const Duration(milliseconds: 100),
-                                    child: Container(
-                                      height: 75, width: 67,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
-                                        ), 
-                                      )
-                                    ),
-                                  ),
-                                  AnimatedOpacity(
-                                    opacity: currentOpenIndex < 5 ? 1.0 : 0.0,
-                                    duration: const Duration(milliseconds: 100),
-                                    child: Container(
-                                      height: 75, width: 67,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
-                                        ), 
-                                      )
-                                    ),
-                                  ),
-                                  AnimatedOpacity(
-                                    opacity: currentOpenIndex < 6 ? 1.0 : 0.0,
-                                    duration: const Duration(milliseconds: 100),
-                                    child: Container(
-                                      height: 75, width: 67,
-                                      decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        border: Border.all(
-                                          color: Colors.white,
-                                          width: 1
-                                        ), 
-                                      )
-                                    ),
-                                  ),
-                                ]
-                              )
-                            ]
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(.03),
+                            spreadRadius: 8.0,
+                            blurRadius: 8.0,
+                            offset: Offset(0, 0)
                           )
-                        )
-                      ]
+                        ],
+                      ),
+                      child: Stack(
+                        children : [
+                          Container(
+                            height: 150, 
+                            width: 201,
+                            child: Image.asset(
+                              "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                          Container(
+                            height: 150, width: 201,
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    AnimatedOpacity(
+                                      opacity: currentOpenIndex < 1 ? 1.0 : 0.0,
+                                      duration: const Duration(milliseconds: 100),
+                                      child: Container(
+                                        height: 75, width: 67,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1
+                                          ), 
+                                        )
+                                      ),
+                                    ),
+                                    
+                                    AnimatedOpacity(
+                                      opacity: currentOpenIndex < 2 ? 1.0 : 0.0,
+                                      duration: const Duration(milliseconds: 100),
+                                      child: Container(
+                                        height: 75, width: 67,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1
+                                          ), 
+                                        )
+                                      ),
+                                    ),
+                                    AnimatedOpacity(
+                                      opacity: currentOpenIndex < 3 ? 1.0 : 0.0,
+                                      duration: const Duration(milliseconds: 100),
+                                      child: Container(
+                                        height: 75, width: 67,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1
+                                          ), 
+                                        )
+                                      ),
+                                    ),
+                                  ]
+                                ),
+                                Row(
+                                  children: [
+                                    AnimatedOpacity(
+                                      opacity: currentOpenIndex < 4 ? 1.0 : 0.0,
+                                      duration: const Duration(milliseconds: 100),
+                                      child: Container(
+                                        height: 75, width: 67,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1
+                                          ), 
+                                        )
+                                      ),
+                                    ),
+                                    AnimatedOpacity(
+                                      opacity: currentOpenIndex < 5 ? 1.0 : 0.0,
+                                      duration: const Duration(milliseconds: 100),
+                                      child: Container(
+                                        height: 75, width: 67,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1
+                                          ), 
+                                        )
+                                      ),
+                                    ),
+                                    AnimatedOpacity(
+                                      opacity: currentOpenIndex < 6 ? 1.0 : 0.0,
+                                      duration: const Duration(milliseconds: 100),
+                                      child: Container(
+                                        height: 75, width: 67,
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          border: Border.all(
+                                            color: Colors.white,
+                                            width: 1
+                                          ), 
+                                        )
+                                      ),
+                                    ),
+                                  ]
+                                )
+                              ]
+                            )
+                          )
+                        ]
+                      ),
+
+                      margin: EdgeInsets.all(12), 
+                      padding: EdgeInsets.all(16),
                     ),
 
-                    margin: EdgeInsets.all(12), 
-                    padding: EdgeInsets.all(16),
-                  ),
+                    SizedBox(width: 16),
+                    Container(
 
-                  SizedBox(width: 16),
-                  Container(
-
-                    margin: EdgeInsets.all(12), 
-                    padding: EdgeInsets.all(16),
-                    width: 201,
-                    child: Image.asset(
-                      "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
-                      fit: BoxFit.contain,
-                      errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                           return Container();
-                     },
+                      margin: EdgeInsets.all(12), 
+                      padding: EdgeInsets.all(16),
+                      width: 201,
+                      child: Image.asset(
+                        "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
+                        fit: BoxFit.contain,
+                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                             return Container();
+                       },
+                      ),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(.03),
+                            spreadRadius: 8.0,
+                            blurRadius: 8.0,
+                            offset: Offset(0, 0)
+                          )
+                        ],
+                      ),
                     ),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(16),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(.03),
-                          spreadRadius: 8.0,
-                          blurRadius: 8.0,
-                          offset: Offset(0, 0)
-                        )
-                      ],
-                    ),
-                  ),
-                ]
+                  ]
+                ),
               ),
 
               SizedBox(height: 16),
