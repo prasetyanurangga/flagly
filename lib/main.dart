@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(color: Colors.white, fontSize: 14),
           ),
           onPressed: () {
-            Get.pop();
+            Get.back();
             setState((){
               listGuestCountry = [];
             });
