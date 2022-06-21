@@ -70,7 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
             "OK",
             style: TextStyle(color: Colors.white, fontSize: 14),
           ),
-          onPressed: () => {
+          onPressed: () {
             Navigator.pop(context);
             setState((){
               listGuestCountry = [];
@@ -178,7 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           randomGen();
                           if(listSearchCountry[index]["code"] == codeCountry["code"]){
                             print("Benar");
-                            sweatAlert(context)
+                            sweatAlert(context);
                           } else {
                             calculateDistance({
                               "name" : listSearchCountry[index]["name"] as String,
