@@ -38,7 +38,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   Map<String, dynamic> codeCountry = {
     "name" : "Indonesia",
     "code" : "ID",
@@ -50,8 +49,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<dynamic> listCountry = [];
   List<dynamic> listSearchCountry = [];
   List<Map<String, dynamic>> listGuestCountry = [];
-    int currentOpenIndex = 0;
-
+  int currentOpenIndex = 0;
   Map<String, dynamic>? selectedValueSingleDialog;
 
 
@@ -64,20 +62,39 @@ class _MyHomePageState extends State<MyHomePage> {
   void failAlert() {
 
     Get.defaultDialog(
-      title: "Fail😭😭",
+      title: "Fail 😭😭",
+      titlePadding: EdgeInsets.all(16),
       content: Container(
         padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children : [
-            
-            Text("the answer is "+codeCountry["name"]),
+
+            RichText(
+              text : TextSpan(
+                text: "The answer is ",
+                style: TextStyle(
+                  color: Colors.black
+                ),
+                children: [
+                  TextSpan(
+                    text: codeCountry["name"],
+                    style: TextStyle(
+                      fontWeight: FontWeight.w900,
+                      color: Colors.black
+                    ),
+                  )
+                ]
+              )
+            ),
             SizedBox(height: 16),
             TextButton(
-              child: Text('Okay'),
+              child: Text('Share'),
               onPressed: () {
-                html.window.location.reload();
+                Get.back();
+                handleShare();
+                copiedAlert();
               }
             )
             
@@ -88,10 +105,12 @@ class _MyHomePageState extends State<MyHomePage> {
 
   }
 
+
   void sweatAlert() {
 
     Get.defaultDialog(
       title: "Horay🥳🥳",
+      titlePadding: EdgeInsets.all(16),
       content: Container(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -99,12 +118,41 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children : [
             
-            Text("Congratulations you managed to answer correctly"),
+            Text("Your answers correct"),
+            SizedBox(height: 16),
+            TextButton(
+              child: Text('Share'),
+              onPressed: () {
+                Get.back();
+                handleShare();
+                copiedAlert();
+              }
+            )
+            
+          ]
+        )
+      )
+    );
+
+  }
+
+  void copiedAlert() {
+
+    Get.defaultDialog(
+      title: "😁😁😁",
+      titlePadding: EdgeInsets.all(16),
+      content: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children : [
+            Text("Copied Result To Clipboard "),
             SizedBox(height: 16),
             TextButton(
               child: Text('Okay'),
               onPressed: () {
-                html.window.location.reload();
+                Get.back();
               }
             )
             
@@ -141,7 +189,7 @@ class _MyHomePageState extends State<MyHomePage> {
         "code" : from["code"]  as String,
         'lat_to': from["lat"].toString(),  
         'lng_to': from["lng"].toString(),
-        "distance" : data["data"]["distance"].toString() + " KM",
+        "distance" : data["data"]["distance"].toString(),
         "direction" : data["data"]["direction"].toString()
       });
       setState((){
@@ -161,6 +209,7 @@ class _MyHomePageState extends State<MyHomePage> {
      
     Get.defaultDialog(
       title: "Choose Country",
+      titlePadding: EdgeInsets.all(16),
       content: Container(
         width: 300,
         child: SearchChoices.single(
@@ -239,6 +288,55 @@ class _MyHomePageState extends State<MyHomePage> {
         )
       )
     );
+  }
+
+  void handleShare(){
+    var result = "Flag X/6 \n\n";
+    listGuestCountry.forEach((item) {
+      var distance = int.parse(item["distance"]);
+
+      var iconDistance = "⬛⬛⬛⬛⬛⬛";
+
+      if(distance < 1000) {
+        iconDistance = "🟨🟨🟨🟨🟨🟨";
+      }
+
+      if(distance >= 1000) {
+        iconDistance = "🟥🟥🟥🟥🟥🟥";
+      }
+
+      if(distance == 0) {
+        iconDistance = "🟩🟩🟩🟩🟩🟩";
+      }
+
+      var directionIcon = "☑";
+
+      if(item["direction"] == "N"){
+        directionIcon = "⬆";
+      } else if(item["direction"] == "NE"){
+        directionIcon = "↗";
+      } else if(item["direction"] == "E"){
+        directionIcon = "➡";
+      } else if(item["direction"] == "SE"){
+        directionIcon = "↘";
+      } else if(item["direction"] == "S"){
+        directionIcon = "⬇";
+      } else if(item["direction"] == "SW"){
+        directionIcon = "↙";
+      } else if(item["direction"] == "W"){
+        directionIcon = "⬅";
+      } else if(item["direction"] == "NW"){
+        directionIcon = "↖";
+      }
+
+      result = result + iconDistance +" "+item["distance"]+"KM " + directionIcon +"\n";
+
+
+    });
+
+    result = result + "\nhttps://prasetyanurangga.github.io/flagly";
+
+    Clipboard.setData(ClipboardData(text: result));
   }
 
   Future<void> readJson() async {
@@ -327,6 +425,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Text(
+                    'FlagLy',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   Center(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -345,136 +451,162 @@ class _MyHomePageState extends State<MyHomePage> {
                               )
                             ],
                           ),
-                          child: Stack(
-                            children : [
-                              Container(
-                                height: 150, 
-                                width: 201,
-                                child: Image.asset(
-                                  "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
-                                  fit: BoxFit.contain,
+                          child: Column(
+                            children: [
+                              Text(
+                                'Flag',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Container(
-                                height: 150, width: 201,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 1 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 2 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 3 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                      ]
+                              SizedBox(height: 20),
+                              Stack(
+                                children : [
+                                  Container(
+                                    height: 150, 
+                                    width: 201,
+                                    child: Image.asset(
+                                      "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
+                                      fit: BoxFit.contain,
                                     ),
-                                    Row(
+                                  ),
+                                  Container(
+                                    height: 150, width: 201,
+                                    child: Column(
                                       children: [
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 4 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
+                                        Row(
+                                          children: [
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 1 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 2 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 3 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                          ]
                                         ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 5 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 6 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
+                                        Row(
+                                          children: [
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 4 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 5 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 6 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                          ]
+                                        )
                                       ]
                                     )
-                                  ]
-                                )
-                              )
+                                  )
+                                ]
+                              ),
                             ]
                           ),
 
-                          margin: EdgeInsets.all(12), 
                           padding: EdgeInsets.all(16),
                         ),
 
                         SizedBox(height: 16),
                         Container(
 
-                          margin: EdgeInsets.all(12), 
                           padding: EdgeInsets.all(16),
-                          width: 201,
-                          child: Image.asset(
-                            "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
-                            fit: BoxFit.contain,
-                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                 return Container();
-                           },
+                          child: Column(
+                            children: [
+
+                              Text(
+                                'Map',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Container(
+                                width: 201,
+                                child: Image.asset(
+                                  "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                       return Container();
+                                 },
+                                ), 
+                              )
+                            ]
                           ),
+                          
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
@@ -491,11 +623,55 @@ class _MyHomePageState extends State<MyHomePage> {
                       ]
                     ),
                   ),
+                  SizedBox(height: 16),
+
+                  
+                  ElevatedButton(  
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF16a34a),
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(16.0),
+                      ),
+                    ),
+
+                    onPressed: () {
+                      if(listGuestCountry.length < 6){
+                        showListCountry();
+                      } else{
+                        
+                        handleShare();
+                        copiedAlert();
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            (listGuestCountry.length < 6) ? "Guest Country"  : "Share",
+                            style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white
+                            )
+                          )
+                        ],
+                      )
+                    )
+                  ),
 
                   SizedBox(height: 16),
 
-                  Container(
-                    margin: EdgeInsets.all(12), 
+                  Text(
+                    "Attempt ${currentOpenIndex}/6",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+
+                  SizedBox(height: 16),
+
+                  listGuestCountry.length > 0 ? Container(
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -510,51 +686,23 @@ class _MyHomePageState extends State<MyHomePage> {
                       ],
                     ),
                     width: 301,
-                    height: 200,
+                    height: 420,
                     child: ListView.builder(
                       itemCount: listGuestCountry.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
-                          title: Text(listGuestCountry[index]['name']),
-                          subtitle: Text(listGuestCountry[index]['distance']),
+                          title: Text(
+                            listGuestCountry[index]['name'],
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700
+                            ),
+                          ),
+                          subtitle: Text(listGuestCountry[index]['distance'] + " KM"),
                           trailing: iconGenerator(listGuestCountry[index]['direction']),
                         ); 
                       }
                     ),
-                  ),
-                  SizedBox(height: 16),
-
-                  ElevatedButton(  
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(24.0),
-                      ),
-                    ),
-
-                    onPressed: () {
-                      if(listGuestCountry.length < 6){
-                        showListCountry();
-                      } else{
-                        failAlert();
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Guest",
-                            style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black
-                            )
-                          )
-                        ],
-                      )
-                    )
-                  ),
+                  ) : Container(),
                 ]
               )
             ),
@@ -563,6 +711,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Text(
+                    'FlagLy',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -581,136 +737,162 @@ class _MyHomePageState extends State<MyHomePage> {
                               )
                             ],
                           ),
-                          child: Stack(
-                            children : [
-                              Container(
-                                height: 150, 
-                                width: 201,
-                                child: Image.asset(
-                                  "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
-                                  fit: BoxFit.contain,
+                          child: Column(
+                            children: [
+                              Text(
+                                'Flag',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Container(
-                                height: 150, width: 201,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 1 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 2 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 3 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                      ]
+                              SizedBox(height: 20),
+                              Stack(
+                                children : [
+                                  Container(
+                                    height: 150, 
+                                    width: 201,
+                                    child: Image.asset(
+                                      "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
+                                      fit: BoxFit.contain,
                                     ),
-                                    Row(
+                                  ),
+                                  Container(
+                                    height: 150, width: 201,
+                                    child: Column(
                                       children: [
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 4 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
+                                        Row(
+                                          children: [
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 1 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 2 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 3 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                          ]
                                         ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 5 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 6 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
+                                        Row(
+                                          children: [
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 4 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 5 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 6 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                          ]
+                                        )
                                       ]
                                     )
-                                  ]
-                                )
-                              )
+                                  )
+                                ]
+                              ),
                             ]
                           ),
 
-                          margin: EdgeInsets.all(12), 
                           padding: EdgeInsets.all(16),
                         ),
 
                         SizedBox(width: 16),
                         Container(
 
-                          margin: EdgeInsets.all(12), 
                           padding: EdgeInsets.all(16),
-                          width: 201,
-                          child: Image.asset(
-                            "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
-                            fit: BoxFit.contain,
-                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                 return Container();
-                           },
+                          child: Column(
+                            children: [
+
+                              Text(
+                                'Map',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Container(
+                                height: 150,
+                                child: Image.asset(
+                                  "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                       return Container();
+                                 },
+                                ), 
+                              )
+                            ]
                           ),
+                          
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
@@ -730,8 +912,53 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   SizedBox(height: 16),
 
-                  Container(
-                    margin: EdgeInsets.all(12), 
+                  
+                  ElevatedButton(  
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF16a34a),
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(16.0),
+                      ),
+                    ),
+
+                    onPressed: () {
+                      if(listGuestCountry.length < 6){
+                        showListCountry();
+                      } else{
+                        
+                        handleShare();
+                        copiedAlert();
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            (listGuestCountry.length < 6) ? "Guest Country"  : "Share",
+                            style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white
+                            )
+                          )
+                        ],
+                      )
+                    )
+                  ),
+
+                  SizedBox(height: 16),
+
+                  Text(
+                    "Attempt ${currentOpenIndex}/6",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+
+                  SizedBox(height: 16),
+
+                  listGuestCountry.length > 0 ? Container(
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -745,52 +972,24 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       ],
                     ),
-                    width: 301,
-                    height: 200,
+                    width: 402,
+                    height: 420,
                     child: ListView.builder(
                       itemCount: listGuestCountry.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
                           title: Text(listGuestCountry[index]['name']),
-                          subtitle: Text(listGuestCountry[index]['distance']),
+                          subtitle: Text(
+                            listGuestCountry[index]['distance'] + " KM",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700
+                            ),
+                          ),
                           trailing: iconGenerator(listGuestCountry[index]['direction']),
                         ); 
                       }
                     ),
-                  ),
-                  SizedBox(height: 16),
-
-                  ElevatedButton(  
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(24.0),
-                      ),
-                    ),
-
-                    onPressed: () {
-                      if(listGuestCountry.length < 6){
-                        showListCountry();
-                      } else{
-                        failAlert();
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Guest",
-                            style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black
-                            )
-                          )
-                        ],
-                      )
-                    )
-                  ),
+                  ) : Container(),
                 ]
               )
             ),
@@ -799,6 +998,14 @@ class _MyHomePageState extends State<MyHomePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
+                  Text(
+                    'FlagLy',
+                    style: TextStyle(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+                  SizedBox(height: 20),
                   Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -817,136 +1024,162 @@ class _MyHomePageState extends State<MyHomePage> {
                               )
                             ],
                           ),
-                          child: Stack(
-                            children : [
-                              Container(
-                                height: 150, 
-                                width: 201,
-                                child: Image.asset(
-                                  "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
-                                  fit: BoxFit.contain,
+                          child: Column(
+                            children: [
+                              Text(
+                                'Flag',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600
                                 ),
                               ),
-                              Container(
-                                height: 150, width: 201,
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      children: [
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 1 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 2 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 3 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                      ]
+                              SizedBox(height: 20),
+                              Stack(
+                                children : [
+                                  Container(
+                                    height: 150, 
+                                    width: 201,
+                                    child: Image.asset(
+                                      "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
+                                      fit: BoxFit.contain,
                                     ),
-                                    Row(
+                                  ),
+                                  Container(
+                                    height: 150, width: 201,
+                                    child: Column(
                                       children: [
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 4 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
+                                        Row(
+                                          children: [
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 1 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 2 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 3 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                          ]
                                         ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 5 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
-                                        AnimatedOpacity(
-                                          opacity: currentOpenIndex < 6 ? 1.0 : 0.0,
-                                          duration: const Duration(milliseconds: 100),
-                                          child: Container(
-                                            height: 75, width: 67,
-                                            decoration: BoxDecoration(
-                                              color: Colors.grey,
-                                              border: Border.all(
-                                                color: Colors.white,
-                                                width: 1
-                                              ), 
-                                            )
-                                          ),
-                                        ),
+                                        Row(
+                                          children: [
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 4 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 5 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                            AnimatedOpacity(
+                                              opacity: currentOpenIndex < 6 ? 1.0 : 0.0,
+                                              duration: const Duration(milliseconds: 100),
+                                              child: Container(
+                                                height: 75, width: 67,
+                                                decoration: BoxDecoration(
+                                                  color: Colors.grey,
+                                                  border: Border.all(
+                                                    color: Colors.white,
+                                                    width: 1
+                                                  ), 
+                                                )
+                                              ),
+                                            ),
+                                          ]
+                                        )
                                       ]
                                     )
-                                  ]
-                                )
-                              )
+                                  )
+                                ]
+                              ),
                             ]
                           ),
 
-                          margin: EdgeInsets.all(12), 
                           padding: EdgeInsets.all(16),
                         ),
 
                         SizedBox(width: 16),
                         Container(
 
-                          margin: EdgeInsets.all(12), 
                           padding: EdgeInsets.all(16),
-                          width: 201,
-                          child: Image.asset(
-                            "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
-                            fit: BoxFit.contain,
-                            errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
-                                 return Container();
-                           },
+                          child: Column(
+                            children: [
+
+                              Text(
+                                'Map',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w600
+                                ),
+                              ),
+                              SizedBox(height: 20),
+                              Container(
+                                height: 150,
+                                child: Image.asset(
+                                  "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
+                                  fit: BoxFit.contain,
+                                  errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                                       return Container();
+                                 },
+                                ), 
+                              )
+                            ]
                           ),
+                          
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(16),
@@ -966,8 +1199,53 @@ class _MyHomePageState extends State<MyHomePage> {
 
                   SizedBox(height: 16),
 
-                  Container(
-                    margin: EdgeInsets.all(12), 
+                  
+                  ElevatedButton(  
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(0xFF16a34a),
+                      shape: new RoundedRectangleBorder(
+                        borderRadius: new BorderRadius.circular(16.0),
+                      ),
+                    ),
+
+                    onPressed: () {
+                      if(listGuestCountry.length < 6){
+                        showListCountry();
+                      } else{
+                        
+                        handleShare();
+                        copiedAlert();
+                      }
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            (listGuestCountry.length < 6) ? "Guest Country"  : "Share",
+                            style: Theme.of(context).textTheme.bodyText2?.copyWith(
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white
+                            )
+                          )
+                        ],
+                      )
+                    )
+                  ),
+
+                  SizedBox(height: 16),
+
+                  Text(
+                    "Attempt ${currentOpenIndex}/6",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w700
+                    ),
+                  ),
+
+                  SizedBox(height: 16),
+
+                  listGuestCountry.length > 0 ? Container(
                     padding: EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -981,55 +1259,27 @@ class _MyHomePageState extends State<MyHomePage> {
                         )
                       ],
                     ),
-                    width: 301,
-                    height: 200,
+                    width: 402,
+                    height: 420,
                     child: ListView.builder(
                       itemCount: listGuestCountry.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
                           title: Text(listGuestCountry[index]['name']),
-                          subtitle: Text(listGuestCountry[index]['distance']),
+                          subtitle: Text(
+                            listGuestCountry[index]['distance'] + " KM",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w700
+                            ),
+                          ),
                           trailing: iconGenerator(listGuestCountry[index]['direction']),
                         ); 
                       }
                     ),
-                  ),
-                  SizedBox(height: 16),
-
-                  ElevatedButton(  
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.white,
-                      shape: new RoundedRectangleBorder(
-                        borderRadius: new BorderRadius.circular(24.0),
-                      ),
-                    ),
-
-                    onPressed: () {
-                      if(listGuestCountry.length < 6){
-                        showListCountry();
-                      } else{
-                        failAlert();
-                      }
-                    },
-                    child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text(
-                            "Guest",
-                            style: Theme.of(context).textTheme.bodyText2?.copyWith(
-                              fontWeight: FontWeight.normal,
-                              color: Colors.black
-                            )
-                          )
-                        ],
-                      )
-                    )
-                  ),
+                  ) : Container(),
                 ]
               )
-            )
+            ),
           )
         )
       ),// This trailing comma makes auto-formatting nicer for build methods.
