@@ -25,7 +25,7 @@ jobs:
   
     
     - name: Build release project
-      run: flutter build web --release --web-renderer html --base-href "/flagly/"
+      run: flutter build web --release --base-href "/flagly/"
 
     - name: Upload production-ready build files
       uses: actions/upload-artifact@v2
