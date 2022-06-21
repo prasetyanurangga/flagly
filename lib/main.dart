@@ -93,13 +93,6 @@ class _MyHomePageState extends State<MyHomePage> {
     
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    setState(() {
-      updateListView();
-    });
-  }
 
   void showListCountry() {
     setState((){
@@ -151,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 height: 200,
                 width: 200,
                   child: ListView.builder(
-                    itemCount: listSearchCountry.length > 20 ? 20 : listSearchCountry.length,
+                    itemCount: listSearchCountry.length,
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: (){
