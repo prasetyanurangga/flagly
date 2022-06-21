@@ -71,7 +71,6 @@ class _MyHomePageState extends State<MyHomePage> {
             TextButton(
               child: Text('Okay'),
               onPressed: () {
-                readJson();
                 html.window.location.reload();
               }
             )
