@@ -256,6 +256,28 @@ class _MyHomePageState extends State<MyHomePage> {
     // print(setOfInts);
   }
 
+  Widget iconGenerator(String direction) {
+    if(direction == "N"){
+      return Icon(Icons.north)
+    } else if(direction == "NE"){
+      return Icon(Icons.north_east)
+    } else if(direction == "E"){
+      return Icon(Icons.east)
+    } else if(direction == "SE"){
+      return Icon(Icons.south_east)
+    } else if(direction == "S"){
+      return Icon(Icons.south)
+    } else if(direction == "SW"){
+      return Icon(Icons.south_west)
+    } else if(direction == "W"){
+      return Icon(Icons.west)
+    } else if(direction == "NW"){
+      return Icon(Icons.north_west)
+    } else {
+      return Icon(Icons.close)
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -429,8 +451,9 @@ class _MyHomePageState extends State<MyHomePage> {
                   itemCount: listGuestCountry.length,
                   itemBuilder: (BuildContext context, int index) {
                     return ListTile(
-                      leading: const Icon(Icons.list),
-                      title: Text(listGuestCountry[index]['name'] + " | " + listGuestCountry[index]['distance'] + " | " + listGuestCountry[index]['direction'])
+                      title: Text(listGuestCountry[index]['name']),
+                      subtitle: Text(listGuestCountry[index]['distance']),
+                      trailing: iconGenerator(listGuestCountry[index]['direction']),
                     ); 
                   }
                 ),
