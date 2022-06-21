@@ -178,6 +178,8 @@ class _MyHomePageState extends State<MyHomePage> {
                           randomGen();
                           if(listSearchCountry[index]["code"] == codeCountry["code"]){
                             print("Benar");
+                            
+                            Get.back();
                             sweatAlert(context);
                           } else {
                             calculateDistance({
