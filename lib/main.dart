@@ -58,7 +58,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void sweatAlert(BuildContext context) {
 
-    randomGen();
+    readJson();
     Alert(
       context: context,
       type: AlertType.success,
@@ -175,11 +175,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: (){
-                          randomGen();
+                          Get.back();
                           if(listSearchCountry[index]["code"] == codeCountry["code"]){
                             print("Benar");
-                            
-                            Get.back();
                             sweatAlert(context);
                           } else {
                             calculateDistance({
@@ -188,7 +186,7 @@ class _MyHomePageState extends State<MyHomePage> {
                               "lat" : listSearchCountry[index]["lat"],
                               "lng" : listSearchCountry[index]["lng"]
                             }, codeCountry);
-                            Get.back();
+                            randomGen();
                           }
                           
                         },
@@ -402,7 +400,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(16),
                 width: 150,
                 child: Image.asset(
-                  "assets/maps/${codeCountry['code']!.toLowerCase()}/512.png",
+                  "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
                   fit: BoxFit.contain,
                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                        return Container();
