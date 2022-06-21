@@ -71,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             style: TextStyle(color: Colors.white, fontSize: 14),
           ),
           onPressed: () {
-            Navigator.pop(context);
+            Get.pop();
             setState((){
               listGuestCountry = [];
             });
@@ -127,46 +127,46 @@ class _MyHomePageState extends State<MyHomePage> {
     });
      
     Get.defaultDialog(
-      title: "GeeksforGeeks",
+      title: "Choose Country",
       content: Container(
         child: Column(
             children : [
-              TextFormField(
-                onChanged: (text) {
-                  setState(() {
-                    listSearchCountry = listCountry.where((item) => (item["name"].toLowerCase()).contains(text.toLowerCase())).toList();
-                  });
-                  print(text);
-                  print(listSearchCountry);
-                  print(listSearchCountry.length);
-                },
-                textAlign: TextAlign.center,
-                decoration: InputDecoration(
-                  hintText: "Type URL",
-                  fillColor: Color(0xFFECE8E8).withOpacity(0.4),
-                  filled: true,
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  errorBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                  disabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide.none,
-                    borderRadius: BorderRadius.circular(8.0),
-                  ),
-                ),
-              ),
+              // TextFormField(
+              //   onChanged: (text) {
+              //     setState(() {
+              //       listSearchCountry = listCountry.where((item) => (item["name"].toLowerCase()).contains(text.toLowerCase())).toList();
+              //     });
+              //     print(text);
+              //     print(listSearchCountry);
+              //     print(listSearchCountry.length);
+              //   },
+              //   textAlign: TextAlign.center,
+              //   decoration: InputDecoration(
+              //     hintText: "Type URL",
+              //     fillColor: Color(0xFFECE8E8).withOpacity(0.4),
+              //     filled: true,
+              //     border: OutlineInputBorder(
+              //       borderSide: BorderSide.none,
+              //       borderRadius: BorderRadius.circular(8.0),
+              //     ),
+              //     focusedBorder: OutlineInputBorder(
+              //       borderSide: BorderSide.none,
+              //       borderRadius: BorderRadius.circular(8.0),
+              //     ),
+              //     enabledBorder: OutlineInputBorder(
+              //       borderSide: BorderSide.none,
+              //       borderRadius: BorderRadius.circular(8.0),
+              //     ),
+              //     errorBorder: OutlineInputBorder(
+              //       borderSide: BorderSide.none,
+              //       borderRadius: BorderRadius.circular(8.0),
+              //     ),
+              //     disabledBorder: OutlineInputBorder(
+              //       borderSide: BorderSide.none,
+              //       borderRadius: BorderRadius.circular(8.0),
+              //     ),
+              //   ),
+              // ),
               Container(
                 height: 200,
                 width: 200,
