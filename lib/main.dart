@@ -70,12 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
             "OK",
             style: TextStyle(color: Colors.white, fontSize: 14),
           ),
-          onPressed: () {
-            Get.back();
-            setState((){
-              listGuestCountry = [];
-            });
-          },
+          onPressed: () => Navigator.pop(context),
         )
       ],
     ).show();
@@ -178,6 +173,10 @@ class _MyHomePageState extends State<MyHomePage> {
                           Get.back();
                           if(listSearchCountry[index]["code"] == codeCountry["code"]){
                             print("Benar");
+                            
+                            setState((){
+                              listGuestCountry = [];
+                            });
                             sweatAlert(context);
                           } else {
                             calculateDistance({
