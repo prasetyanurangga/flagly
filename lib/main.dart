@@ -57,24 +57,29 @@ class _MyHomePageState extends State<MyHomePage> {
     readJson();
   }
 
-  void sweatAlert(BuildContext context) {
+  void sweatAlert() {
 
-    readJson();
-    Alert(
-      context: context,
-      type: AlertType.success,
-      title: "Horayyy",
-      desc: "Congrats your answer is correct",
-      buttons: [
-        DialogButton(
-          child: Text(
-            "OK",
-            style: TextStyle(color: Colors.white, fontSize: 14),
-          ),
-          onPressed: () => html.window.location.reload(),
+    Get.defaultDialog(
+      title: "Horay",
+      content: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children : [
+            
+            Text("Congratulations you managed to answer correctly"),
+            TextButton(
+              child: Text('Okay'),
+              onPressed: () {
+                readJson();
+                html.window.location.reload();
+              }
+            )
+            
+          ]
         )
-      ],
-    ).show();
+      )
+    );
 
   }
 
@@ -173,8 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         onTap: (){
                           Get.back();
                           if(listSearchCountry[index]["code"] == codeCountry["code"]){
-                            print("Benar");
-                            sweatAlert(context);
+                            sweatAlert();
                           } else {
                             calculateDistance({
                               "name" : listSearchCountry[index]["name"] as String,
