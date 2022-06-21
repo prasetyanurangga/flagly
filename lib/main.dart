@@ -61,12 +61,14 @@ class _MyHomePageState extends State<MyHomePage> {
     Get.defaultDialog(
       title: "Horay",
       content: Container(
+        padding: EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children : [
             
             Text("Congratulations you managed to answer correctly"),
+            SizedBox(height: 16),
             TextButton(
               child: Text('Okay'),
               onPressed: () {
@@ -418,7 +420,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
                 margin: EdgeInsets.all(12), 
                 padding: EdgeInsets.all(16),
-                width: 150,
+                width: 201,
                 child: Image.asset(
                   "assets/maps/${codeCountry['code']!.toLowerCase()}.png",
                   fit: BoxFit.contain,
@@ -457,7 +459,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   ],
                 ),
-                width: 150,
+                width: 201,
                 height: 100,
                 child: ListView.builder(
                   itemCount: listGuestCountry.length,
