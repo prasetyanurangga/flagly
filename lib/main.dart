@@ -251,7 +251,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       height: 150, 
                       width: 201,
                       child: Image.asset(
-                        "flags/${codeCountry['code']!.toLowerCase()}.png",
+                        "assets/flags/${codeCountry['code']!.toLowerCase()}.png",
                         fit: BoxFit.contain,
                       ),
                     ),
@@ -367,7 +367,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 padding: EdgeInsets.all(16),
                 width: 150,
                 child: Image.asset(
-                  "maps/${codeCountry['code']!.toLowerCase()}/512.png",
+                  "assets/maps/${codeCountry['code']!.toLowerCase()}/512.png",
                   fit: BoxFit.contain,
                   errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
                        return Container();
