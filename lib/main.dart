@@ -56,10 +56,37 @@ class _MyHomePageState extends State<MyHomePage> {
     readJson();
   }
 
+  void failAlert() {
+
+    Get.defaultDialog(
+      title: "Fail😭😭",
+      content: Container(
+        padding: EdgeInsets.all(16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children : [
+            
+            Text("the answer is "+codeCountry["name"]),
+            SizedBox(height: 16),
+            TextButton(
+              child: Text('Okay'),
+              onPressed: () {
+                html.window.location.reload();
+              }
+            )
+            
+          ]
+        )
+      )
+    );
+
+  }
+
   void sweatAlert() {
 
     Get.defaultDialog(
-      title: "Horay",
+      title: "Horay🥳🥳",
       content: Container(
         padding: EdgeInsets.all(16),
         child: Column(
@@ -485,6 +512,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 onPressed: () {
                   if(listGuestCountry.length < 6){
                     showListCountry();
+                  } else{
+                    failAlert();
                   }
                 },
                 child: Container(
