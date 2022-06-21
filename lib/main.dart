@@ -440,34 +440,32 @@ class _MyHomePageState extends State<MyHomePage> {
 
               SizedBox(height: 16),
 
-              Expanded(
-                child: Container(
-                  margin: EdgeInsets.all(12), 
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(16),
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(.03),
-                        spreadRadius: 8.0,
-                        blurRadius: 8.0,
-                        offset: Offset(0, 0)
-                      )
-                    ],
-                  ),
-                  width: 150,
-                  height: 100,
-                  child: ListView.builder(
-                    itemCount: listGuestCountry.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      return ListTile(
-                        title: Text(listGuestCountry[index]['name']),
-                        subtitle: Text(listGuestCountry[index]['distance']),
-                        trailing: iconGenerator(listGuestCountry[index]['direction']),
-                      ); 
-                    }
-                  ),
+              Container(
+                margin: EdgeInsets.all(12), 
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(16),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(.03),
+                      spreadRadius: 8.0,
+                      blurRadius: 8.0,
+                      offset: Offset(0, 0)
+                    )
+                  ],
+                ),
+                width: 150,
+                height: 100,
+                child: ListView.builder(
+                  itemCount: listGuestCountry.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return ListTile(
+                      title: Text(listGuestCountry[index]['name']),
+                      subtitle: Text(listGuestCountry[index]['distance']),
+                      trailing: iconGenerator(listGuestCountry[index]['direction']),
+                    ); 
+                  }
                 ),
               ),
               SizedBox(height: 16),
