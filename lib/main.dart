@@ -63,7 +63,7 @@ class _MyHomePageState extends State<MyHomePage> {
       context: context,
       type: AlertType.success,
       title: "Horayyy",
-      desc: "Songrats your answer is correct",
+      desc: "Congrats your answer is correct",
       buttons: [
         DialogButton(
           child: Text(
@@ -173,7 +173,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           Get.back();
                           if(listSearchCountry[index]["code"] == codeCountry["code"]){
                             print("Benar");
-                            
+
                             setState((){
                               listGuestCountry = [];
                             });
