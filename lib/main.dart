@@ -7,7 +7,8 @@ import 'package:http/http.dart' as http;
 import 'dart:html' as html;
 import 'package:search_choices/search_choices.dart';
 import 'package:flagly/layout/layout.dart';
-
+import 'package:flutter/gestures.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() {
   runApp(const MyApp());
@@ -51,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Map<String, dynamic>> listGuestCountry = [];
   int currentOpenIndex = 0;
   Map<String, dynamic>? selectedValueSingleDialog;
+  bool isCorrect = false;
 
 
   @override
@@ -264,15 +266,20 @@ class _MyHomePageState extends State<MyHomePage> {
           onPressed: () {
             if(selectedValueSingleDialog != null){
               Get.back();
+
+              calculateDistance({
+                "name" : selectedValueSingleDialog!["name"] as String,
+                "code" : selectedValueSingleDialog!["code"]  as String,
+                "lat" : selectedValueSingleDialog!["lat"],
+                "lng" : selectedValueSingleDialog!["lng"]
+              }, codeCountry);
               if(selectedValueSingleDialog!["code"] == codeCountry["code"]){
+                setState((){
+                    isCorrect = true;
+                    currentOpenIndex = 6;
+                });
                 sweatAlert();
               } else {
-                calculateDistance({
-                  "name" : selectedValueSingleDialog!["name"] as String,
-                  "code" : selectedValueSingleDialog!["code"]  as String,
-                  "lat" : selectedValueSingleDialog!["lat"],
-                  "lng" : selectedValueSingleDialog!["lng"]
-                }, codeCountry);
                 randomGen();
 
                 if(currentOpenIndex == 6){
@@ -311,6 +318,9 @@ class _MyHomePageState extends State<MyHomePage> {
 
       var directionIcon = "☑";
 
+
+      
+
       if(item["direction"] == "N"){
         directionIcon = "⬆";
       } else if(item["direction"] == "NE"){
@@ -327,6 +337,11 @@ class _MyHomePageState extends State<MyHomePage> {
         directionIcon = "⬅";
       } else if(item["direction"] == "NW"){
         directionIcon = "↖";
+      }
+
+      if(distance == 0){
+        directionIcon = "🥳";
+
       }
 
       result = result + iconDistance +" "+item["distance"]+"KM " + directionIcon +"\n";
@@ -371,6 +386,14 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void launchUrlBuyMeCoffe() async {
+    if (!await launchUrl(Uri.parse("https://ko-fi.com/prasetyanurangga"))) throw 'Could not launch';
+  }
+
+  void openUrl(String url) async {
+    if (!await launchUrl(Uri.parse(url))) throw 'Could not launch';
+  }
+
   void randomGen(){
     
     var randNum = currentOpenIndex + 1;
@@ -391,7 +414,14 @@ class _MyHomePageState extends State<MyHomePage> {
     // print(setOfInts);
   }
 
-  Widget iconGenerator(String direction) {
+  Widget iconGenerator(String direction, String distance) {
+
+
+    var distanceNum = int.parse(distance);
+    if(distanceNum == 0){
+      return Icon(Icons.check);
+    }
+
     if(direction == "N"){
       return Icon(Icons.north);
     } else if(direction == "NE"){
@@ -411,6 +441,7 @@ class _MyHomePageState extends State<MyHomePage> {
     } else {
       return Icon(Icons.close);
     }
+
   }
 
   @override
@@ -635,10 +666,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
 
                     onPressed: () {
-                      if(listGuestCountry.length < 6){
+                      if(listGuestCountry.length < 6 && !isCorrect){
                         showListCountry();
                       } else{
-                        
                         handleShare();
                         copiedAlert();
                       }
@@ -649,7 +679,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            (listGuestCountry.length < 6) ? "Guest Country"  : "Share",
+                            (listGuestCountry.length < 6 && !isCorrect) ? "Guest Country"  : "Share",
                             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                               fontWeight: FontWeight.w700,
                               color: Colors.white
@@ -659,6 +689,33 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                     )
                   ),
+
+                  SizedBox(height: 16),
+                  isCorrect ? Container(
+                    width: 402,
+                    child: Row(
+                        children: [
+                          Expanded(
+                            child: RichText(
+                              text : TextSpan(
+                                text: "Show On Maps🗺",
+                                recognizer: new TapGestureRecognizer()..onTap = () => openUrl("https://www.google.com/maps?q="+ codeCountry["name"]+" "+codeCountry["code"]),
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ),
+                          Expanded(
+                            child: RichText(
+                              text : TextSpan(
+                                text: "Show On Wikipedia🌎",
+                                recognizer: new TapGestureRecognizer()..onTap = () => openUrl("https://en.wikipedia.org/wiki/"+codeCountry["name"]),
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          )
+                        ]
+                    ),
+                  ) :  Container(),
 
                   SizedBox(height: 16),
 
@@ -691,18 +748,34 @@ class _MyHomePageState extends State<MyHomePage> {
                       itemCount: listGuestCountry.length,
                       itemBuilder: (BuildContext context, int index) {
                         return ListTile(
-                          title: Text(
-                            listGuestCountry[index]['name'],
+                          title: Text(listGuestCountry[index]['name']),
+                          subtitle: Text(
+                            listGuestCountry[index]['distance'] + " KM",
                             style: TextStyle(
                               fontWeight: FontWeight.w700
                             ),
                           ),
-                          subtitle: Text(listGuestCountry[index]['distance'] + " KM"),
-                          trailing: iconGenerator(listGuestCountry[index]['direction']),
+                          trailing: iconGenerator(listGuestCountry[index]['direction'], listGuestCountry[index]['distance']),
                         ); 
                       }
                     ),
                   ) : Container(),
+
+                  SizedBox(height: 20),
+                  RichText(
+                    text : TextSpan(
+                      text: "Want to support us? ",
+                      children: [
+                        new TextSpan(
+                          text: 'Buy Me a Coffee☕',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700
+                          ),
+                          recognizer: new TapGestureRecognizer()..onTap = () => launchUrlBuyMeCoffe(),
+                        )
+                      ]
+                    ),
+                  )
                 ]
               )
             ),
@@ -922,10 +995,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
 
                     onPressed: () {
-                      if(listGuestCountry.length < 6){
+                      if(listGuestCountry.length < 6 && !isCorrect){
                         showListCountry();
                       } else{
-                        
                         handleShare();
                         copiedAlert();
                       }
@@ -936,7 +1008,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            (listGuestCountry.length < 6) ? "Guest Country"  : "Share",
+                            (listGuestCountry.length < 6 && !isCorrect) ? "Guest Country"  : "Share",
                             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                               fontWeight: FontWeight.w700,
                               color: Colors.white
@@ -946,6 +1018,33 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                     )
                   ),
+
+                  SizedBox(height: 16),
+                  isCorrect ? Container(
+                    width: 402,
+                    child: Row(
+                        children: [
+                          Expanded(
+                            child: RichText(
+                              text : TextSpan(
+                                text: "Show On Maps🗺",
+                                recognizer: new TapGestureRecognizer()..onTap = () => openUrl("https://www.google.com/maps?q="+ codeCountry["name"]+" "+codeCountry["code"]),
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ),
+                          Expanded(
+                            child: RichText(
+                              text : TextSpan(
+                                text: "Show On Wikipedia🌎",
+                                recognizer: new TapGestureRecognizer()..onTap = () => openUrl("https://en.wikipedia.org/wiki/"+codeCountry["name"]),
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          )
+                        ]
+                    ),
+                  ) :  Container(),
 
                   SizedBox(height: 16),
 
@@ -985,11 +1084,27 @@ class _MyHomePageState extends State<MyHomePage> {
                               fontWeight: FontWeight.w700
                             ),
                           ),
-                          trailing: iconGenerator(listGuestCountry[index]['direction']),
+                          trailing: iconGenerator(listGuestCountry[index]['direction'], listGuestCountry[index]['distance']),
                         ); 
                       }
                     ),
                   ) : Container(),
+
+                  SizedBox(height: 20),
+                  RichText(
+                    text : TextSpan(
+                      text: "Want to support us? ",
+                      children: [
+                        new TextSpan(
+                          text: 'Buy Me a Coffee☕',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700
+                          ),
+                          recognizer: new TapGestureRecognizer()..onTap = () => launchUrlBuyMeCoffe(),
+                        )
+                      ]
+                    ),
+                  )
                 ]
               )
             ),
@@ -1209,10 +1324,9 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
 
                     onPressed: () {
-                      if(listGuestCountry.length < 6){
+                      if(listGuestCountry.length < 6 && !isCorrect){
                         showListCountry();
                       } else{
-                        
                         handleShare();
                         copiedAlert();
                       }
@@ -1223,7 +1337,7 @@ class _MyHomePageState extends State<MyHomePage> {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
-                            (listGuestCountry.length < 6) ? "Guest Country"  : "Share",
+                            (listGuestCountry.length < 6 && !isCorrect) ? "Guest Country"  : "Share",
                             style: Theme.of(context).textTheme.bodyText2?.copyWith(
                               fontWeight: FontWeight.w700,
                               color: Colors.white
@@ -1233,6 +1347,33 @@ class _MyHomePageState extends State<MyHomePage> {
                       )
                     )
                   ),
+
+                  SizedBox(height: 16),
+                  isCorrect ? Container(
+                    width: 402,
+                    child: Row(
+                        children: [
+                          Expanded(
+                            child: RichText(
+                              text : TextSpan(
+                                text: "Show On Maps🗺",
+                                recognizer: new TapGestureRecognizer()..onTap = () => openUrl("https://www.google.com/maps?q="+ codeCountry["name"]+" "+codeCountry["code"]),
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          ),
+                          Expanded(
+                            child: RichText(
+                              text : TextSpan(
+                                text: "Show On Wikipedia🌎",
+                                recognizer: new TapGestureRecognizer()..onTap = () => openUrl("https://en.wikipedia.org/wiki/"+codeCountry["name"]),
+                              ),
+                              textAlign: TextAlign.center,
+                            )
+                          )
+                        ]
+                    ),
+                  ) :  Container(),
 
                   SizedBox(height: 16),
 
@@ -1272,11 +1413,27 @@ class _MyHomePageState extends State<MyHomePage> {
                               fontWeight: FontWeight.w700
                             ),
                           ),
-                          trailing: iconGenerator(listGuestCountry[index]['direction']),
+                          trailing: iconGenerator(listGuestCountry[index]['direction'], listGuestCountry[index]['distance']),
                         ); 
                       }
                     ),
                   ) : Container(),
+
+                  SizedBox(height: 20),
+                  RichText(
+                    text : TextSpan(
+                      text: "Want to support us? ",
+                      children: [
+                        new TextSpan(
+                          text: 'Buy Me a Coffee☕',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w700
+                          ),
+                          recognizer: new TapGestureRecognizer()..onTap = () => launchUrlBuyMeCoffe(),
+                        )
+                      ]
+                    ),
+                  )
                 ]
               )
             ),
