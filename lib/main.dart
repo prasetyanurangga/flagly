@@ -445,6 +445,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
               Expanded(
                 child: Container(
+                  margin: EdgeInsets.all(12), 
+                  padding: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(.03),
+                        spreadRadius: 8.0,
+                        blurRadius: 8.0,
+                        offset: Offset(0, 0)
+                      )
+                    ],
+                  ),
                   width: 150,
                   child: ListView.builder(
                     itemCount: listGuestCountry.length,
