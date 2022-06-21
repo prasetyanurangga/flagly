@@ -149,13 +149,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       return GestureDetector(
                         onTap: (){
                           randomGen();
-                          calculateDistance({
-                            "name" : listSearchCountry[index]["name"] as String,
-                            "code" : listSearchCountry[index]["code"]  as String,
-                            "lat" : listSearchCountry[index]["lat"],
-                            "lng" : listSearchCountry[index]["lng"]
-                          }, codeCountry);
-                          Get.back();
+                          if(listSearchCountry[index]["code"] == codeCountry["code"]){
+                            print("Benar");
+                          } else {
+                            calculateDistance({
+                              "name" : listSearchCountry[index]["name"] as String,
+                              "code" : listSearchCountry[index]["code"]  as String,
+                              "lat" : listSearchCountry[index]["lat"],
+                              "lng" : listSearchCountry[index]["lng"]
+                            }, codeCountry);
+                            Get.back();
+                          }
+                          
                         },
                         child: ListTile(
                           leading: const Icon(Icons.list),
@@ -413,7 +418,9 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
 
                 onPressed: () {
-                  showListCountry();
+                  if(listGuestCountry.length < 6){
+                    showListCountry();
+                  }
                 },
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 12),
