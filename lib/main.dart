@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'dart:html' as html;
 
 void main() {
   runApp(const MyApp());
@@ -70,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             "OK",
             style: TextStyle(color: Colors.white, fontSize: 14),
           ),
-          onPressed: () => Navigator.pop(context),
+          onPressed: () => html.window.location.reload(),
         )
       ],
     ).show();
