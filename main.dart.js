@@ -33774,7 +33774,7 @@ s=r.r
 s.push(q)
 A.ex(s)
 r.an(new A.a5m(r,s,q))},
-S(a,b){var s,r,q,p=this,o=null,n=A.fL(16),m=t.sq,l=A.b([new A.dW(8,B.eB,A.ax(8,0,0,0),new A.k(0,0),8)],m),k=A.cW(o,A.adH("flags/"+p.e.h(0,"code").toLowerCase()+".png",o,B.l_),o,o,150,o,o,201),j=p.z,i=j<1?1:0
+S(a,b){var s,r,q,p=this,o=null,n=A.fL(16),m=t.sq,l=A.b([new A.dW(8,B.eB,A.ax(8,0,0,0),new A.k(0,0),8)],m),k=A.cW(o,A.adH("assets/flags/"+p.e.h(0,"code").toLowerCase()+".png",o,B.l_),o,o,150,o,o,201),j=p.z,i=j<1?1:0
 i=A.no(!1,A.cW(o,o,o,new A.dc(B.c8,o,A.rl(B.k,1),o,o,o,B.at),75,o,o,67),B.O,B.a4,i)
 s=j<2?1:0
 s=A.no(!1,A.cW(o,o,o,new A.dc(B.c8,o,A.rl(B.k,1),o,o,o,B.at),75,o,o,67),B.O,B.a4,s)
@@ -33788,7 +33788,7 @@ q=i<5?1:0
 q=A.no(!1,A.cW(o,o,o,new A.dc(B.c8,o,A.rl(B.k,1),o,o,o,B.at),75,o,o,67),B.O,B.a4,q)
 i=i<6?1:0
 l=A.cW(o,A.wi(B.cq,A.b([k,A.cW(o,A.Bp(A.b([j,A.Yi(A.b([s,q,A.no(!1,A.cW(o,o,o,new A.dc(B.c8,o,A.rl(B.k,1),o,o,o,B.at),75,o,o,67),B.O,B.a4,i)],r),B.c7)],r),B.cz,B.cQ,B.c7),o,o,150,o,o,201)],r),B.d7),o,new A.dc(B.k,o,o,n,l,o,B.at),o,new A.aF(12,12,12,12),new A.aF(16,16,16,16),o)
-m=A.cW(o,A.adH("maps/"+p.e.h(0,"code").toLowerCase()+"/512.png",new A.a5i(),B.l_),o,new A.dc(B.k,o,o,A.fL(16),A.b([new A.dW(8,B.eB,A.ax(8,0,0,0),new A.k(0,0),8)],m),o,B.at),o,new A.aF(12,12,12,12),new A.aF(16,16,16,16),150)
+m=A.cW(o,A.adH("assets/maps/"+p.e.h(0,"code").toLowerCase()+"/512.png",new A.a5i(),B.l_),o,new A.dc(B.k,o,o,A.fL(16),A.b([new A.dW(8,B.eB,A.ax(8,0,0,0),new A.k(0,0),8)],m),o,B.at),o,new A.aF(12,12,12,12),new A.aF(16,16,16,16),150)
 n=A.w9(o,16,o)
 i=A.cW(o,A.adZ(new A.a5j(p),p.y.length),o,o,300,o,o,1/0)
 q=A.w9(o,16,o)
