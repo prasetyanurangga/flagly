@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:rflutter_alert/rflutter_alert.dart';
 import 'dart:html' as html;
 
 void main() {
