@@ -443,18 +443,19 @@ class _MyHomePageState extends State<MyHomePage> {
 
               SizedBox(height: 16),
 
-              Container(
-                height: 300,
-                width: double.infinity,
-                child: ListView.builder(
-                  itemCount: listGuestCountry.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                      title: Text(listGuestCountry[index]['name']),
-                      subtitle: Text(listGuestCountry[index]['distance']),
-                      trailing: iconGenerator(listGuestCountry[index]['direction']),
-                    ); 
-                  }
+              Expanded(
+                child: Container(
+                  width: 150,
+                  child: ListView.builder(
+                    itemCount: listGuestCountry.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                        title: Text(listGuestCountry[index]['name']),
+                        subtitle: Text(listGuestCountry[index]['distance']),
+                        trailing: iconGenerator(listGuestCountry[index]['direction']),
+                      ); 
+                    }
+                  ),
                 ),
               ),
               SizedBox(height: 16),
