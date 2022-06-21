@@ -322,7 +322,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Container(
                                   height: 75, width: 67,
                                   decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: Colors.grey,
                                     border: Border.all(
                                       color: Colors.white,
                                       width: 1
@@ -337,7 +337,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Container(
                                   height: 75, width: 67,
                                   decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: Colors.grey,
                                     border: Border.all(
                                       color: Colors.white,
                                       width: 1
@@ -351,7 +351,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Container(
                                   height: 75, width: 67,
                                   decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: Colors.grey,
                                     border: Border.all(
                                       color: Colors.white,
                                       width: 1
@@ -369,7 +369,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Container(
                                   height: 75, width: 67,
                                   decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: Colors.grey,
                                     border: Border.all(
                                       color: Colors.white,
                                       width: 1
@@ -383,7 +383,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Container(
                                   height: 75, width: 67,
                                   decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: Colors.grey,
                                     border: Border.all(
                                       color: Colors.white,
                                       width: 1
@@ -397,7 +397,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                 child: Container(
                                   height: 75, width: 67,
                                   decoration: BoxDecoration(
-                                    color: Colors.green,
+                                    color: Colors.grey,
                                     border: Border.all(
                                       color: Colors.white,
                                       width: 1
