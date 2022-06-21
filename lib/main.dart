@@ -460,6 +460,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ],
                   ),
                   width: 150,
+                  height: 100,
                   child: ListView.builder(
                     itemCount: listGuestCountry.length,
                     itemBuilder: (BuildContext context, int index) {
