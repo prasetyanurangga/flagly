@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 void main() {
   runApp(const MyApp());
@@ -53,6 +54,32 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     readJson();
+  }
+
+  void sweatAlert(BuildContext context) {
+
+    randomGen();
+    Alert(
+      context: context,
+      type: AlertType.success,
+      title: "Horayyy",
+      desc: "Songrats your answer is correct",
+      buttons: [
+        DialogButton(
+          child: Text(
+            "OK",
+            style: TextStyle(color: Colors.white, fontSize: 14),
+          ),
+          onPressed: () => {
+            Navigator.pop(context);
+            setState((){
+              listGuestCountry = [];
+            });
+          },
+        )
+      ],
+    ).show();
+
   }
 
   void calculateDistance(Map<String, dynamic> from, Map<String, dynamic> to) async{
@@ -151,6 +178,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           randomGen();
                           if(listSearchCountry[index]["code"] == codeCountry["code"]){
                             print("Benar");
+                            sweatAlert(context)
                           } else {
                             calculateDistance({
                               "name" : listSearchCountry[index]["name"] as String,
