@@ -173,10 +173,6 @@ class _MyHomePageState extends State<MyHomePage> {
                           Get.back();
                           if(listSearchCountry[index]["code"] == codeCountry["code"]){
                             print("Benar");
-
-                            setState((){
-                              listGuestCountry = [];
-                            });
                             sweatAlert(context);
                           } else {
                             calculateDistance({
