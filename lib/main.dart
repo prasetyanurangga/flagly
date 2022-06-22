@@ -696,7 +696,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 
                   SizedBox(height: 16),
-                  isCorrect ? Container(
+                  (isCorrect || listGuestCountry.length == 6) ? Container(
                     width: 402,
                     child: Row(
                         children: [
@@ -1025,7 +1025,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 
                   SizedBox(height: 16),
-                  isCorrect ? Container(
+                  (isCorrect || listGuestCountry.length == 6)  ? Container(
                     width: 402,
                     child: Row(
                         children: [
@@ -1354,7 +1354,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
 
                   SizedBox(height: 16),
-                  isCorrect ? Container(
+                  (isCorrect || listGuestCountry.length == 6) ? Container(
                     width: 402,
                     child: Row(
                         children: [
