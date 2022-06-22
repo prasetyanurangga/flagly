@@ -9,6 +9,7 @@ import 'package:search_choices/search_choices.dart';
 import 'package:flagly/layout/layout.dart';
 import 'package:flutter/gestures.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:universal_html/html.dart';
 
 void main() {
   runApp(const MyApp());
@@ -58,6 +59,10 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    final loader = document.getElementById('loading_indicator');
+    if(loader != null) {
+      loader.remove();
+    }
     readJson();
   }
 
