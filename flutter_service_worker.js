@@ -3,12 +3,13 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
-  "main.dart.js": "35a8d5a3a967c56c9b0a9c4d91882dcb",
+  "main.dart.js": "0e269a099ec84ffebdab411bedeefaf1",
 "manifest.json": "799afd514e257eeadd47301c9472d70d",
 "version.json": "1389d0b934e27d4e8a59342f503f9cba",
 "flutter.js": "0816e65a103ba8ba51b174eeeeb2cb67",
-"index.html": "5f18ee1cfaf67a5890ae72c5d18a6eea",
-"/": "5f18ee1cfaf67a5890ae72c5d18a6eea",
+"index.html": "42ad2660476c33f46f2fc0c25257b885",
+"/": "42ad2660476c33f46f2fc0c25257b885",
+"icons/loading.gif": "264325465796ccef46bb3bd918550e4f",
 "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
@@ -1047,7 +1048,7 @@ const RESOURCES = {
 "assets/assets/maps/cy.png": "0c5a7888d4d0d45dce1debe064604a35",
 "assets/assets/maps/tw.png": "f233e17827d1e0289edee6e6a5b96c1f",
 "assets/assets/maps/ec.png": "1b0883757724523e5e0e648e83ebed54",
-"assets/NOTICES": "67b521d78475ff0b60b3c73546b59b6e",
+"assets/NOTICES": "e344b5676124c5756398373b45fdf8eb",
 "assets/FontManifest.json": "7b2a36307916a9721811788013e65289",
 "favicon.png": "5dcef449791fa27946b3d35ad8803796"
 };

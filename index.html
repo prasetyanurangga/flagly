@@ -34,13 +34,17 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = '2560220705';
+    var serviceWorkerVersion = '2414111727';
   </script>
   <!-- This script adds the flutter initialization JS code -->
   <script src="flutter.js" defer></script>
 </head>
 <body>
+  <div id="loading_indicator" style="height: 100vh;display: flex;align-items: center;justify-content: center;">
+    <img src="icons/loading.gif" style="width: 100px;height: 100px;">
+  </div>
   <script>
+    var loadingIndicator = document.getElementById("loading_indicator");
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
       _flutter.loader.loadEntrypoint({
@@ -48,8 +52,10 @@
           serviceWorkerVersion: serviceWorkerVersion,
         }
       }).then(function(engineInitializer) {
+        console.log("mulai initializeEngine");
         return engineInitializer.initializeEngine();
       }).then(function(appRunner) {
+        console.log("mulai runApp");
         return appRunner.runApp();
       });
     });
