@@ -1,16 +1,29 @@
-# flagly
+# Flagly - Flutter Web
 
-A new Flutter project.
+Flagly
 
-## Getting Started
+**Packages we are using:**
+- [Getx](https://pub.dev/packages/get)
+- [Http](https://pub.dev/packages/http)
+- [Gap](https://pub.dev/packages/gap)
+- [URL Launcher](https://pub.dev/packages/url_launcher)
+- [Universal HTML](https://pub.dev/packages/universal_html)
 
-This project is a starting point for a Flutter application.
+    
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+**Contact**
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For more information contact angganurprasetya4@gmail.com
+
+**Live Demo**
+
+[Flagly](https://prasetyanurangga.github.io/flagly)
+
+**Data**
+
+[Flagly Api](https://github.com/prasetyanurangga/flagly_api/)
+
+### Flagly Final UI
+![Landing UI](https://github.com/prasetyanurangga/flagly/raw/main/flagly_ui_landing.png)
+
