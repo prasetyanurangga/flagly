@@ -25,5 +25,5 @@ For more information contact angganurprasetya4@gmail.com
 [Flagly Api](https://github.com/prasetyanurangga/flagly_api/)
 
 ### Flagly Final UI
-![Landing UI](https://github.com/prasetyanurangga/flagly/raw/main/flagly_ui_landing.png)
+![Landing UI](https://github.com/prasetyanurangga/flagly/raw/main/flagly.png)
 
